@@ -19,11 +19,10 @@ class ShowController extends Controller
         $this->game = $game;
     }
 
-    public function __invoke(string $id): JsonResponse
+    public function __invoke(string $id): GameResource|JsonResponse
     {
         try {
-            return new GameResource($this->game->get($id))
-                ->response();
+            return new GameResource($this->game->get($id));
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

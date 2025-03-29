@@ -16,7 +16,6 @@ class Difficulty extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'uuid',
         'name',
         'slug',
     ];

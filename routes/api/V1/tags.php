@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Tag\IndexController;
 use App\Http\Controllers\Api\V1\Tag\ShowController;
 use App\Http\Controllers\Api\V1\Tag\StoreController;
+use App\Http\Controllers\Api\V1\Tag\UpdateController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('tags.')->group(function () {
@@ -18,7 +19,14 @@ Route::name('tags.')->group(function () {
 
 
     Route::middleware(['auth:sanctum'])->group(function () {
-        Route::post('/', StoreController::class)
-        ->name('store');
+        Route::post(
+            uri: '/',
+            action: StoreController::class
+        )->name('store');
+
+        Route::put(
+            uri: '/{id}',
+            action: UpdateController::class
+        )->name('update');
     });
 });

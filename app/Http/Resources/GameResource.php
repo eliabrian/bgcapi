@@ -26,6 +26,7 @@ class GameResource extends JsonResource
                         'player_max' => $this->player_max,
                         'age' => $this->age,
                         'duration' => $this->duration,
+                        'summary' => $this->summary,
                     ],
                     'relationships' => [
                         'difficulty' => new DifficultyResource($this->whenLoaded('difficulty')),

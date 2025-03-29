@@ -15,20 +15,22 @@ class LoginController extends Controller
     public function __invoke(AuthUserRequest $request): JsonResponse
     {
         try {
-            Auth::attempt(
+            if (Auth::attempt(
                 $request->safe()->only(['email', 'password'])
-            );
+            )) {
 
-            $user = Auth::user();
+                $user = Auth::user();
+                $user->tokens()->delete();
 
-            $user->tokens()->delete();
+                $token = $user->createToken($user->name . "_token")
+                    ->plainTextToken;
 
-            $token = $user->createToken($user->name . "_token")
-                ->plainTextToken;
-
-            return $this->responseSuccess(
-                ['token' => $token],
-            );
+                return $this->responseSuccess(
+                    ['token' => $token],
+                );
+            } else {
+                abort(401, 'Invalid credentials.');
+            }
         } catch (\Exception $e) {
             return $this->responseError($e, JsonResponse::HTTP_UNAUTHORIZED);
         }

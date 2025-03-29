@@ -19,11 +19,10 @@ class ShowController extends Controller
         $this->difficulty = $difficulty;
     }
 
-    public function __invoke(string $id): JsonResponse
+    public function __invoke(string $id): DifficultyResource|JsonResponse
     {
         try {
-            return new DifficultyResource($this->difficulty->get($id))
-                ->response();
+            return new DifficultyResource($this->difficulty->get($id));
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

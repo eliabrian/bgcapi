@@ -19,11 +19,10 @@ class ShowController extends Controller
         $this->tag = $tag;
     }
 
-    public function __invoke(string $id): JsonResponse
+    public function __invoke(string $id): TagResource|JsonResponse
     {
         try {
-            return new TagResource($this->tag->get($id))
-                ->response();
+            return new TagResource($this->tag->get($id));
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

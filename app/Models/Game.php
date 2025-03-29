@@ -16,7 +16,6 @@ class Game extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'uuid',
         'name',
         'slug',
         'tag_id',

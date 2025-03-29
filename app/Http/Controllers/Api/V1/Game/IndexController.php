@@ -19,11 +19,10 @@ class IndexController extends Controller
         $this->game = $game;
     }
 
-    public function __invoke(): JsonResponse
+    public function __invoke(): GameCollection|JsonResponse
     {
         try {
-            return new GameCollection($this->game->all())
-                ->response();
+            return new GameCollection($this->game->all());
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

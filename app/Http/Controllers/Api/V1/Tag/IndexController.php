@@ -19,11 +19,10 @@ class IndexController extends Controller
         $this->tag = $tag;
     }
 
-    public function __invoke(): JsonResponse
+    public function __invoke(): TagCollection|JsonResponse
     {
         try {
-            return new TagCollection($this->tag->all())
-                ->response();
+            return new TagCollection($this->tag->all());
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

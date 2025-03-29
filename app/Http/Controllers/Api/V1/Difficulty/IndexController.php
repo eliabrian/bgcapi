@@ -18,11 +18,10 @@ class IndexController extends Controller
         $this->difficulty = $difficulty;
     }
 
-    public function __invoke(): JsonResponse
+    public function __invoke(): DifficultyCollection|JsonResponse
     {
         try {
-            return new DifficultyCollection($this->difficulty->all())
-                ->response();
+            return new DifficultyCollection($this->difficulty->all());
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
